@@ -60,3 +60,7 @@ mysql -p
 Windowsとコンテナ間のファイル共有はかなり重いのでDockerホスト側にファイルを置く事を推奨
 VS Codeの拡張で RemoteWSLを使うことで、VS Code経由でDockerホスト側のファイルの編集が可能。
 こちらの方が断然速い。
+
+起動方法
+①VS Codeを起動 → F1 → Ubuntuなど実行したい環境を検索
+②Ubuntu側でVSCodeを開く`code .`など
