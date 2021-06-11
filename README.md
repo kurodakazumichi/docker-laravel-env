@@ -54,3 +54,9 @@ mysql -p
 ## データベースのデータ保存先を変えるなら
 
 `docker-compose.yml`ないでvolumeの生成とマウントを記述してるのでここを変えればよい。
+
+## Windows 開発の注意
+
+Windowsとコンテナ間のファイル共有はかなり重いのでDockerホスト側にファイルを置く事を推奨
+VS Codeの拡張で RemoteWSLを使うことで、VS Code経由でDockerホスト側のファイルの編集が可能。
+こちらの方が断然速い。
