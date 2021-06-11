@@ -50,3 +50,7 @@ docker compose exec db bash
 # mysqlコマンド後は自由に操作(ID,PASSはデフォルトのままなら .envを参照)
 mysql -p
 ```
+
+## データベースのデータ保存先を変えるなら
+
+`docker-compose.yml`ないでvolumeの生成とマウントを記述してるのでここを変えればよい。
