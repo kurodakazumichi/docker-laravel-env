@@ -1,15 +1,52 @@
 # docker laravel handson
 
+## 参考サイト
+https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4
+
+## 初回
+
+gitからcloneしてきた直後は以下のコマンドで環境を作成する。
+
 ```
-# 環境を起動する
+# Dockerホスト環境
+# コンテナ作成
+docker compose up -d --build
+
+# Laravelのインストールのために[app]コンテナに入る
+docker compose exec app bash
+
+# [app]環境
+# Laravelのインストール
+composer install
+
+# .envをexampleから用意
+cp .env.example .env
+
+# .envにAPP_KEYがないので、以下のコマンドで生成
+php artisan key:generate
+
+# public/storage → storage/app/publicへシンボリックリンクを貼る
+php artisan storage:link
+
+# storage, bootstrap/cacheに書き込み権限を与える
+chmod -R 777 storage bootstrap/cache
+
+# migration
+php artisan migrate
+```
+
+## 初回以降
+
+```
 docker compose up -d
 ```
 
-```
-# 初回のみappコンテナに入りLaravelをインストールする
-docker compose exec app bash
-composer create-project --prefer-dist "laravel/laravel=8.*" .
+## MySQLコンテナ内でMySQLを操作
 
-# Laravelのバージョンを確認
-php artisan -V
+```
+# dbコンテナに入る
+docker compose exec db bash
+
+# mysqlコマンド後は自由に操作(ID,PASSはデフォルトのままなら .envを参照)
+mysql -p
 ```
