@@ -3,6 +3,16 @@
 ## 参考サイト
 https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4
 
+## 共通事項
+
+ホストのユーザID、グループIDを環境変数に設定する。
+(ホストとコンテナでユーザIDとグループIDが揃ってないとPermission周りで苦労する)
+
+```
+export UID=$(id -u)
+export GID=$(id -g)
+```
+
 ## 初回
 
 gitからcloneしてきた直後は以下のコマンドで環境を作成する。
@@ -55,6 +65,8 @@ mysql -p
 
 `docker-compose.yml`ないでvolumeの生成とマウントを記述してるのでここを変えればよい。
 
+# トラブルシューティング
+
 ## Windows 開発の注意
 
 Windowsとコンテナ間のファイル共有はかなり重いのでDockerホスト側にファイルを置く事を推奨
@@ -66,3 +78,11 @@ VS Codeの拡張で RemoteWSLを使うことで、VS Code経由でDockerホス�
 ②Ubuntu側でVSCodeを開く`code .`など
 
 https://qiita.com/_masa_u/items/d3c1fa7898b0783bc3ed
+
+
+## appコンテナでファイルを作成するとホストから操作できない
+
+Dockerホストとコンテナでuser_idやgroup_idが揃ってない事が原因のようだ。
+`docker-compose.yml`にて、[app]コンテナを起動する際のユーザIDとグループIDを
+環境変数を参照するようにした。
+また`/etc/group`、`/etc/passwd`をappコンテナにマウントする。

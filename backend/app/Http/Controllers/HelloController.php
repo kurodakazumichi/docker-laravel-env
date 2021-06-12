@@ -94,4 +94,18 @@ class HelloController extends Controller
       'result' => $name . 'をアップロードしました。'
     ]);
   }
+
+  public function middle() {
+    return 'log is recorded!!';
+  }
+
+  public function session1(Request $req) {
+    $req->session()->put('series', '速習シリーズ');
+    return 'セッションを保存しました';
+  }
+
+  public function session2(Request $req) {
+    $series = $req->session()->get('series', '未定');
+    return 'シリーズ:' . $series;
+  }
 }
